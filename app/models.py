@@ -12,6 +12,6 @@ class Supplier(models.Model):
 class Product(models.Model):
     productname = models.CharField(max_length = 20, default = "laku")
     packagesize = models.CharField(max_length = 20, default = 3)
-    unitprice = models.IntegerField(default = 3)
+    unitprice = models.DecimalField(max_digits=10, decimal_places=2, default=1.00)
     unitsinstock = models.IntegerField(default= 3)
     companyname = models.CharField(max_length= 50, default= 'lakufirma')
