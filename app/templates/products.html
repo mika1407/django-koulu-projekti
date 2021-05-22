@@ -4,10 +4,14 @@
 
 <div class="btn-group" role="group">
     <a href="/" class="btn btn-info btn-sm" style="margin: 7px;display:inline-block;">Home</a>
-    <button id="add-btn" class="btn btn-info btn-sm" style="margin: 7px;display:inline-block;">Add new supplier</button>
+    <button id="add-btn" class="btn btn-success btn-sm" style="margin: 7px;display:inline-block;" onclick="showaddform()">Add new product</button>
     <a href="/suppliers" class="btn btn-warning btn-sm" style="margin: 7px;display:inline-block;">Manage suppliers</a>
-    <a href="/products" class="btn btn-success btn-sm" style="margin: 7px;display:inline-block;">Manage products</a>
+    <a href="/products" class="btn btn-primary btn-sm" style="margin: 7px;display:inline-block;">Manage products</a>
 </div>
+
+<br />
+<div id="add-div"></div>
+<br />
 
 <h2>Products</h2>
 
@@ -25,6 +29,42 @@
     </div>
 </div>
 
+{% empty %}
+<h4>No products saved in a database.</h4>
+
 {%endfor%}
+
+<script>
+
+    let y = `
+    <h2 style="color: darkorange;">Please fill in form</h2>
+    
+    <div class="card" style="width: 20rem;">
+        <div class="card-body">
+            <form method="post" action="/add-product/">
+
+                {%csrf_token %}
+                <input class="card-text" class="card-text" type="text" placeholder="product name" name="productname">
+                <input class="card-text" type="text" placeholder="package size" name="packagesize">
+                <input class="card-text" type="text" placeholder="unitprice" name="unitprice">
+                <input class="card-text" type="text" placeholder="units in stock or 0" name="unitsinstock">
+                <input class="card-text" type="text" placeholder="suppliers name" name="companyname">
+                <br/>
+                <br/>
+                <input type="submit" value="Confirm" class="btn btn-success btn-sm" name="">
+                <input type="submit" id="hide-btn" class="btn btn-secondary btn-sm" onclick="hideaddform()" value="Cancel" name="">
+            </form>
+        </div>
+    </div>`
+
+    function showaddform() {
+        document.getElementById("add-div").innerHTML = y
+    }
+
+    function hideaddform() {
+        document.getElementById("add-div").innerHTML = ""
+    }
+
+</script>
 
 {% endblock %}
